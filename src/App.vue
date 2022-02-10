@@ -1,26 +1,58 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+ <div class="wrapper">
+    <div class="wrapper_form" id="wr">
+      <Form v-on:addProduct="addProduct"/>
+    </div>
+   <div class="overlay" id="overlay"></div>
+   <div class="wrapper_catalog" >
+     <Catalog :catalog="catalog"/>
+   </div>
+ </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Catalog from './components/Catalog'
+import Form from './components/Form'
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Form,
+    Catalog
+  },
+  data () {
+    return {
+      catalog: []
+    }
+  },
+  methods: {
+    addProduct (newProduct) {
+      this.catalog.push(newProduct)
+      localStorage.setItem('catalog', JSON.stringify(this.catalog))
+    },
+    getProduct () {
+      const catalog = JSON.parse(localStorage.getItem('catalog'))
+      if (catalog) {
+        this.catalog = catalog
+        console.log(this.catalog)
+      }
+    }
+  },
+  mounted () {
+    this.getProduct()
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.wrapper{
+  display: flex;
+  width:100%;
+  &_form{
+    width:25%;
+  }
+  &_catalog{
+    width:75%;
+  }
 }
+
 </style>
