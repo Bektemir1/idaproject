@@ -1,6 +1,6 @@
 <template>
   <div class="product" v-for="product in catalog" :key="product.id">
-    <div class="product_delete">
+    <div @click="$emit('deleteProduct', product.id)" class="product_delete">
       <img src="../assets/img/delete.svg">
     </div>
     <div class="product_img">
@@ -8,7 +8,7 @@
     </div>
     <h2 class="product_title">{{product.name}}</h2>
     <p class="product_desc">{{product.description}}</p>
-    <span class="product_price">{{product.price.replace(/\s+/g, "")}} руб</span>
+    <span class="product_price">{{product.cost.replace(/\s+/g, "")}} руб</span>
   </div>
 </template>
 

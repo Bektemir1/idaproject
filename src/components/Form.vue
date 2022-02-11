@@ -11,12 +11,14 @@
     <input :class="{active: val_img}"  v-model="newProduct.img" placeholder="Введите ссылку">
     <span v-if="val_img" class="form_inputs_validation">Поле является обязательным</span>
     <label>Цена товара <span class="req"></span></label>
-    <input  :class="{active: val_price}"  v-model="newProduct.price" placeholder="Введите цену">
+    <input  :class="{active: val_price}"  v-model="newProduct.cost" placeholder="Введите цену">
     <span v-if="val_price" class="form_inputs_validation">Поле является обязательным</span>
     <button class="form_inputs_add" @click="addProduct">Добавить товар</button>
     <button class="form_inputs_cancel" @click="removeClass()">Закрыть</button>
   </div>
-
+  <div class="form_success" id="success">
+      <span>Product has been added</span>
+  </div>
 </div>
 </template>
 
@@ -34,7 +36,7 @@ export default {
         name: '',
         description: '',
         img: '',
-        price: ''.trim()
+        cost: ''
       }
     }
   },
@@ -60,21 +62,25 @@ export default {
       } else {
         this.val_img = false
       }
-      if (this.newProduct.price === '') {
+      if (this.newProduct.cost === '') {
         this.val_price = true
       } else {
         this.val_price = false
       }
       if (!this.val_name && !this.val_img && !this.val_price) {
+        document.getElementById('success').classList.add('active')
+        setTimeout(() => {
+          document.getElementById('success').classList.remove('active')
+        }, 2000)
+        this.removeClass()
         this.$emit('addProduct', this.newProduct)
         this.newProduct = {
           id: Date.now(),
           name: '',
           description: '',
           img: '',
-          price: ''
+          cost: ''
         }
-        this.removeClass()
       }
     }
   }
@@ -90,6 +96,21 @@ export default {
   height:36px;
 }
 .form{
+  &_success.active{
+    top:10px;
+  }
+  &_success{
+    position:fixed;
+    padding:20px 50px;
+    background: #7BAE73;
+    top:-80px;
+    border-radius:10px;
+    z-index:999;
+    color:#fff;
+    right:10px;
+    transition: 0.4s;
+
+  }
   &_inputs{
     padding:24px;
     box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02);
@@ -148,6 +169,7 @@ export default {
       transition: 0.4s;
       border:1px solid transparent;
     }
+
     &_cancel{
       background: #ff8484;
       display: none;

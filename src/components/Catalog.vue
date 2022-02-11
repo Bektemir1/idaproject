@@ -2,14 +2,19 @@
 <div>
  <div class="wrapper_sort">
    <button class="add_product" @click="addClass">+ Добавить товар</button>
-   <select class="sort">
-     <option>По умолчанию</option>
-     <option>Hello</option>
-     <option>Hello</option>
+   <select  v-model="sort" class="sort">
+     <option value="default">По умолчанию</option>
+     <option value="min">Min to Max</option>
+     <option value="max">Max to Min</option>
    </select>
  </div>
-  <div class="catalog_item">
-    <CatalogItem :catalog="catalog"/>
+  <div class="catalog_item" v-if="catalog.length">
+    <CatalogItem
+      v-on:deleteProduct="deleteProduct"
+      :catalog="catalog"/>
+  </div>
+  <div v-else class="empty_product">
+      You don't have any products!
   </div>
 </div>
 </template>
@@ -22,7 +27,15 @@ export default {
   components: {
     CatalogItem
   },
+  data () {
+    return {
+      sort: 'default'
+    }
+  },
   methods: {
+    deleteProduct (id) {
+      this.$emit('deleteProduct', id)
+    },
     addClass () {
       const form = document.getElementById('wr')
       form.classList.add('active')
@@ -65,6 +78,13 @@ export default {
   cursor:pointer;
   display: none;
   margin-left: 16px;
+}
+.empty_product{
+  color:grey;
+  height:70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 @media(max-width:992px){
   .add_product{

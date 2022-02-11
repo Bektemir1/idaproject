@@ -5,7 +5,9 @@
     </div>
    <div class="overlay" id="overlay"></div>
    <div class="wrapper_catalog" >
-     <Catalog :catalog="catalog"/>
+     <Catalog
+       v-on:deleteProduct="deleteProduct"
+       :catalog="catalog"/>
    </div>
  </div>
 </template>
@@ -25,14 +27,14 @@ export default {
     }
   },
   methods: {
+    deleteProduct (id) {
+      this.catalog = this.catalog.filter((item) => item.id !== id)
+      localStorage.setItem('catalog', JSON.stringify(this.catalog))
+      console.log(this.catalog, '====================')
+    },
     addProduct (newProduct) {
       this.catalog.push(newProduct)
       localStorage.setItem('catalog', JSON.stringify(this.catalog))
-      this.getProduct()
-    },
-    getProduct () {
-      this.catalog = JSON.parse(localStorage.getItem('catalog'))
-      console.log(this.catalog)
     }
   }
 }
