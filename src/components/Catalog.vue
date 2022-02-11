@@ -9,7 +9,7 @@
    </select>
  </div>
   <div class="catalog_item">
-    <CatalogItem/>
+    <CatalogItem :catalog="catalog"/>
   </div>
 </div>
 </template>
@@ -22,7 +22,6 @@ export default {
   components: {
     CatalogItem
   },
-
   methods: {
     addClass () {
       const form = document.getElementById('wr')

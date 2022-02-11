@@ -1,20 +1,21 @@
 <template>
-  <div class="product">
+  <div class="product" v-for="product in catalog" :key="product.id">
     <div class="product_delete">
       <img src="../assets/img/delete.svg">
     </div>
     <div class="product_img">
-      <img src="../assets/img/img.png">
+      <img :src="product.img">
     </div>
-    <h2 class="product_title">Product name</h2>
-    <p class="product_desc">Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк</p>
-    <span class="product_price">4100 руб</span>
+    <h2 class="product_title">{{product.name}}</h2>
+    <p class="product_desc">{{product.description}}</p>
+    <span class="product_price">{{product.price.replace(/\s+/g, "")}} руб</span>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'CatalogItem'
+  name: 'CatalogItem',
+  props: ['catalog']
 }
 </script>
 
@@ -36,7 +37,7 @@ export default {
       width:100%;
       height:100%;
       transition: 0.4s;
-
+      object-fit: cover;
     }
   }
   &_title{

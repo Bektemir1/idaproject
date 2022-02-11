@@ -21,24 +21,19 @@ export default {
   },
   data () {
     return {
-      catalog: []
+      catalog: JSON.parse(localStorage.getItem('catalog')) || []
     }
   },
   methods: {
     addProduct (newProduct) {
       this.catalog.push(newProduct)
       localStorage.setItem('catalog', JSON.stringify(this.catalog))
+      this.getProduct()
     },
     getProduct () {
-      const catalog = JSON.parse(localStorage.getItem('catalog'))
-      if (catalog) {
-        this.catalog = catalog
-        console.log(this.catalog)
-      }
+      this.catalog = JSON.parse(localStorage.getItem('catalog'))
+      console.log(this.catalog)
     }
-  },
-  mounted () {
-    this.getProduct()
   }
 }
 </script>
