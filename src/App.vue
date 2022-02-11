@@ -30,7 +30,6 @@ export default {
     deleteProduct (id) {
       this.catalog = this.catalog.filter((item) => item.id !== id)
       localStorage.setItem('catalog', JSON.stringify(this.catalog))
-      console.log(this.catalog, '====================')
     },
     addProduct (newProduct) {
       this.catalog.push(newProduct)

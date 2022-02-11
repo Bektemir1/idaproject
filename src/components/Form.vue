@@ -96,6 +96,7 @@ export default {
   height:36px;
 }
 .form{
+  overflow:auto;
   &_success.active{
     top:10px;
   }

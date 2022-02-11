@@ -25,7 +25,7 @@ body{
     height:100%;
     border-radius:0;
     background: #fff;
-    position: fixed;
+    width:100%;
     &_inputs{
       height:100%;
       &_cancel{
@@ -43,6 +43,8 @@ body{
     left:-100%;
     z-index:999;
     top:0;
+    width:40%;
+    height: 100%;
 
     transition: 0.6s;
   }
@@ -58,13 +60,16 @@ body{
   .product{
     width:calc(50% - 16px);
   }
+  .wrapper_form{
+    width:50%;
+  }
 }
 @media(max-width:576px){
-  .form{
-    width:100%;
-  }
   .product{
     width:100%;
     margin: 0;
+  }
+  .wrapper_form{
+    width:100%
   }
 }

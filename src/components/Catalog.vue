@@ -2,8 +2,8 @@
 <div>
  <div class="wrapper_sort">
    <button class="add_product" @click="addClass">+ Добавить товар</button>
-   <select  v-model="sort" class="sort">
-     <option value="default">По умолчанию</option>
+   <select @change="sorted"  v-model="sort" class="sort">
+     <option value="name">by alphabet</option>
      <option value="min">Min to Max</option>
      <option value="max">Max to Min</option>
    </select>
@@ -29,7 +29,8 @@ export default {
   },
   data () {
     return {
-      sort: 'default'
+      sort: 'name',
+      sortedList: this.catalog
     }
   },
   methods: {
@@ -40,7 +41,19 @@ export default {
       const form = document.getElementById('wr')
       form.classList.add('active')
       document.getElementById('overlay').classList.add('active')
+    },
+    sorted () {
+      if (this.sort === 'min') {
+        this.sortedList = this.sortedList.sort((a, b) => parseInt(a.cost) - parseInt(b.cost))
+      } else if (this.sort === 'max') {
+        this.sortedList = this.sortedList.sort((a, b) => parseInt(b.cost) - parseInt(a.cost))
+      } else if (this.sort === 'name') {
+        this.sortedList = this.sortedList.sort((a, b) => a.name.localeCompare(b.name))
+      }
     }
+  },
+  mounted () {
+    this.sorted()
   }
 }
 </script>
